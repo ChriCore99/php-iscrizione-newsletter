@@ -1,36 +1,50 @@
 <?php
-    $email = $_POST['email'];
+include __DIR__ . '/utilities.php';
 
-    function mail_verification($email){
-        if(str_contains($email, '@') && str_contains($email, '.')){
-            echo 'your mail is valid, welcome to our news letter!';
-        } else {
-            echo 'your mail not contains @ or . try again';
-        }
-    }
+$email = $_POST['email'] ?? null;
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Document</title>
 </head>
+
 <body>
-    <form action="" method="POST">
+    <form class="text-center" action="" method="POST">
         <!-- input della mail -->
-        <div>
-            <input type="email" name="email" id="email" placeholder="inserisci una mail">
-        </div>
+
+        <input type="text" name="email" id="email" placeholder="inserisci una mail">
         <!-- button invio dati -->
-        <div>
-            <button>invia</button>
-        </div>
+        <button class="btn btn-primary">invia</button>
     </form>
 
     <div>
-        <?php echo mail_verification($email) ?>
+        <?php /* stampa_alert(
+            mail_verification($email) 
+        ) */ ?>
+
+        <?php if ($email === null) { ?>
+            <div>
+                inserisci una mail
+            </div>
+        <?php } elseif (mail_verification($email)) { ?>
+            <div class="alert alert-success" role="alert">
+                Your mail is valid, welcome to our news letter!
+            </div>
+        <?php } else { ?>
+            <div class="alert alert-danger" role="alert">
+                Your mail not contains . or @ try again!
+            </div>
+        <?php } ?>
+
     </div>
 </body>
+
 </html>
