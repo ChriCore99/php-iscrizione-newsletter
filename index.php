@@ -1,10 +1,12 @@
 <?php
     $email = $_POST['email'];
 
-    var_dump($email);
-
-    function mail_verification(){
-        
+    function mail_verification($email){
+        if(str_contains($email, '@') && str_contains($email, '.')){
+            echo 'your mail is valid, welcome to our news letter!';
+        } else {
+            echo 'your mail not contains @ or . try again';
+        }
     }
 ?>
 
@@ -26,5 +28,9 @@
             <button>invia</button>
         </div>
     </form>
+
+    <div>
+        <?php echo mail_verification($email) ?>
+    </div>
 </body>
 </html>
